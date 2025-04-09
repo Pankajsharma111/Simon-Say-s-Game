@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Callback hell</title>
+  </head>
+  <body>
+    <h1>Hellow i'm the heading</h1>
+    <script>
+      let h1 = document.querySelector("h1");
+
+      // function changeColor(color,delay,nextColorChange){
+      //     setTimeout(() => {
+      //         h1.style.color=color;
+      //         if(nextColorChange)nextColorChange();
+      //     }, delay);
+      // }
+      // changeColor("red",1000,()=>{
+      //     changeColor("green",1000,()=>{
+      //         changeColor("blue",1000,()=>{
+      //             changeColor("orange",1000,()=>{
+      //                 changeColor("purple",1000,()=>{
+      //                     changeColor("aqua",1000)
+      //                 })
+      //             })
+      //         })
+      //     });
+      // });
+
+      function changeColor(color, delay) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            h1.style.color = color;
+            resolve("Color changed");
+          }, delay);
+        });
+      }
+      //   console.log(changeColor("red", 2000));
+      //   let req = changeColor("blue", 5000);
+      //   console.log(req);
+
+      changeColor("red", 1000)
+        .then((result) => {
+          console.log("Red color was applied Result: ",result);
+          return changeColor("green", 1000);
+        })
+        .then(() => {
+          console.log("Green color was applied");
+          return changeColor("blue", 1000);
+        })
+        .then(() => {
+          console.log("Blue color was applied");
+        })
+        .catch(() => {
+          console.log("Not applied any color");
+        });
+    </script>
+  </body>
+</html>

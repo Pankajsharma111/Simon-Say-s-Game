@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Callback hell example 2</title>
+  </head>
+  <body>
+    <h1>Apna college</h1>
+    <script>
+      //   function saveDb(data, success, failure) {
+      //     let speed = Math.floor(Math.random() * 10) + 1;
+      //     if (speed > 4) {
+      //       success();
+      //     } else {
+      //       failure();
+      //     }
+      //   }
+
+      //   saveDb(
+      //     "Apana College",
+      //     () => {
+      //       console.log("Success : data saved into DB.");
+      //       saveDb(
+      //         "Radhe Lilhore",
+      //         () => {
+      //           console.log("Success2 : data saved into DB.");
+      //           saveDb(
+      //             "Ritik Patidar",
+      //             () => {
+      //               console.log("Success3 : data saved into DB.");
+      //             },
+      //             () => {
+      //               console.log("Failure3 : data not saved");
+      //             }
+      //           );
+      //         },
+      //         () => {
+      //           console.log("Failure2 : data not saved");
+      //         }
+      //       );
+      //     },
+      //     () => {
+      //       console.log("Failure : data not saved");
+      //     }
+      //   );
+
+      function saveDb(data) {
+        return new Promise((resolve, reject) => {
+          let speed = Math.floor(Math.random() * 10) + 1;
+          if (speed > 4) {
+            resolve("Success : data is saved");
+          } else {
+            reject("Failure : data is not saved");
+          }
+        });
+      }
+      //   console.log(saveDb("Apna college"));
+
+      //   let request = saveDb("Apna college"); //request is a promise object.
+      //   console.log(request);
+
+      //   request
+      //     .then(() => {
+      //       console.log("Promise was resolved");
+      //     })
+      //     .catch(() => {
+      //       console.log("Promise was rejected");
+      //     });
+
+      //   saveDb("Apna college")
+      //     .then(() => {
+      //       console.log("Promise was resolved");
+      //     })
+      //     .catch(() => {
+      //       console.log("Promise was rejected");
+      //     });
+
+      //   saveDb("Apna college")
+      //     .then(() => {
+      //       console.log("Data 1 saved");
+      //       saveDb("Hellow world").then(() => {
+      //         console.log("Data 2 saved");
+      //       });
+      //     })
+      //     .catch(() => {
+      //       console.log("Promise was rejected");
+      //     });
+
+      saveDb("Apna college")
+        .then((result) => {
+          console.log("Data 1 saved");
+          console.log("Result of promise :",result);
+          
+          return saveDb("Hellow world");
+        })
+        .then((result) => {
+          console.log("Data 2 saved");
+          console.log("Result of promise :",result);
+
+          return saveDb("Radhe Lilhore");
+        })
+        .then((result) => {
+          console.log("Data 3 saved");
+          console.log("Result of promise :",result);
+
+        })
+        .catch((error) => {
+          console.log("Promise was rejected");
+          console.log("ERror of promise :",error);
+
+        });
+    </script>
+  </body>
+</html>
